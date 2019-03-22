@@ -47,7 +47,8 @@
     "README.md"
   ],
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "react-native-easy-view-transformer": "^1.0.0"
   },
   "peerDependencies": {
     "react": "*",
