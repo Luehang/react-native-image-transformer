@@ -70,7 +70,11 @@ export default class ImageTransformer extends React.Component {
             viewWidth: 0,
             viewHeight: 0,
             imageLoaded: false,
-            imageDimensions: props.image.dimensions,
+            imageDimensions: props.image.dimensions
+                ? props.image.dimensions
+                : props.image.width && props.image.height
+                ? { width: props.image.width, height: props.image.height }
+                : undefined,
             keyAccumulator: 1,
             source: undefined
         };
@@ -94,7 +98,11 @@ export default class ImageTransformer extends React.Component {
             // image source changed, clear last
             // image's imageDimensions info if any
             this.setState({
-                imageDimensions: nextProps.image.dimensions,
+                imageDimensions: nextProps.image.dimensions
+                    ? nextProps.image.dimensions
+                    : nextProps.image.width && nextProps.image.height
+                    ? { width: nextProps.image.width, height: nextProps.image.height }
+                    : undefined,
                 keyAccumulator: this.state.keyAccumulator + 1,
                 imageLoaded: false
             });
@@ -144,6 +152,7 @@ export default class ImageTransformer extends React.Component {
         if (!image) {
             return;
         }
+
         const uri = image.source && image.source.uri
             ? image.source.uri : image.uri
             ? image.uri : image.URI
@@ -152,12 +161,19 @@ export default class ImageTransformer extends React.Component {
             ? image.URL : undefined;
 
         if (image.dimensions && image.dimensions.width && image.dimensions.height) {
-            this.setState({ imageDimensions: image.dimensions });
+            this._mounted && this.setState({
+                imageDimensions: image.dimensions
+            });
             return;
         }
 
         if (image.width && image.height) {
-            this.setState({ imageDimensions: { width: image.width, height: image.height } });
+            this._mounted && this.setState({
+                imageDimensions: {
+                    width: image.width,
+                    height: image.height
+                }
+            });
             return;
         }
 
