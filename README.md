@@ -3,7 +3,7 @@
 <br/>
 
 <h1 align="center">
-    React Native Easy Guesture Responder
+    React Native Image Transformer
 </h1>
 
 An easy and simple to use React Native component to transform and translate an image with gestures like pan, pinch and double tap.  Supporting both iOS and Android. Free and made possible along with costly maintenance and updates by [Lue Hang](https://www.facebook.com/lue.hang) (the author).
