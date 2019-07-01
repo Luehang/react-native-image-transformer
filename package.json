@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "name": "react-native-image-transformer",
   "description": "An easy and simple to use React Native component to transform and translate an image with gestures like pan, pinch and double tap.  Supporting both iOS and Android. Free and made possible along with costly maintenance and updates by [Lue Hang](https://www.facebook.com/lue.hang) (the author).",
   "keywords": [
@@ -21,7 +21,11 @@
     "animated",
     "animation",
     "ios",
-    "android"
+    "android",
+    "LueHsoft",
+    "LueH LABS",
+    "Lue Hang",
+    "luehang"
   ],
   "homepage": "https://github.com/Luehang/react-native-image-transformer",
   "author": {
