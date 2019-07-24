@@ -27,7 +27,7 @@
     "Lue Hang",
     "luehang"
   ],
-  "homepage": "https://github.com/Luehang/react-native-image-transformer",
+  "homepage": "https://luehangs.site/lue_hang/projects/react-native-image-transformer",
   "author": {
     "name": "Lue Hang",
     "email": "lue_hang@hotmail.com",
@@ -52,7 +52,7 @@
   ],
   "dependencies": {
     "prop-types": "^15.6.2",
-    "react-native-easy-view-transformer": "^1.0.1"
+    "react-native-easy-view-transformer": "^1.1.1"
   },
   "peerDependencies": {
     "react": "*",
