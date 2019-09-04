@@ -34,6 +34,7 @@ export default class ImageTransformer extends React.Component {
             PropTypes.string
         ]),
         maxOverScrollDistance: PropTypes.number,
+        onTransformStart: PropTypes.func,
         onPinchTransforming: PropTypes.func,
         onPinchStartReached: PropTypes.func,
         onPinchEndReached: PropTypes.func,
@@ -41,9 +42,12 @@ export default class ImageTransformer extends React.Component {
         onTransformGestureReleased: PropTypes.func,
         onDoubleTapStartReached: PropTypes.func,
         onDoubleTapEndReached: PropTypes.func,
+        onDoubleTapConfirmed: PropTypes.func,
+        onSingleTapConfirmed: PropTypes.func,
         imageComponent: PropTypes.func,
         resizeMode: PropTypes.string,
         errorComponent: PropTypes.func,
+        onLayout: PropTypes.func,
     };
 
     static defaultProps = {
@@ -146,6 +150,8 @@ export default class ImageTransformer extends React.Component {
         if (this.state.viewWidth !== width || this.state.viewHeight !== height) {
             this.setState({ viewWidth: width, viewHeight: height });
         }
+
+        this.props.onLayout && this.props.onLayout(e);
     }
 
     getImageSize (image) {
@@ -202,7 +208,7 @@ export default class ImageTransformer extends React.Component {
         } else {
             // eslint-disable-next-line no-console
             console.warn(
-                "react-native-gallery-swiper",
+                "react-native-image-transformer",
                 "Please provide dimensions for your local images."
             );
         }
@@ -221,7 +227,7 @@ export default class ImageTransformer extends React.Component {
         } else {
             // eslint-disable-next-line no-console
             console.warn(
-                "react-native-gallery-swiper",
+                "react-native-image-transformer",
                 "Please provide a valid image field in " +
                 "data images. Ex. source, uri, URI, url, URL"
             );
@@ -261,10 +267,11 @@ export default class ImageTransformer extends React.Component {
             style, imageComponent, resizeMode, enableTransform,
             enableScale, maxScale, enableTranslate, enableResistance,
             resistantStrHorizontal, resistantStrVertical,
-            maxOverScrollDistance, onViewTransformed,
+            maxOverScrollDistance, onTransformStart, onViewTransformed,
             onPinchTransforming,  onPinchStartReached,
             onPinchEndReached, onTransformGestureReleased,
             onDoubleTapStartReached, onDoubleTapEndReached,
+            onDoubleTapConfirmed, onSingleTapConfirmed,
             index
         } = this.props;
 
@@ -320,6 +327,7 @@ export default class ImageTransformer extends React.Component {
                 resistantStrHorizontal={resistantStrHorizontal}
                 resistantStrVertical={resistantStrVertical}
                 maxOverScrollDistance={maxOverScrollDistance}
+                onTransformStart={onTransformStart}
                 onViewTransformed={onViewTransformed}
                 onPinchTransforming={onPinchTransforming}
                 onPinchStartReached={onPinchStartReached}
@@ -327,6 +335,8 @@ export default class ImageTransformer extends React.Component {
                 onTransformGestureReleased={onTransformGestureReleased}
                 onDoubleTapStartReached={onDoubleTapStartReached}
                 onDoubleTapEndReached={onDoubleTapEndReached}
+                onDoubleTapConfirmed={onDoubleTapConfirmed}
+                onSingleTapConfirmed={onSingleTapConfirmed}
                 maxScale={resolvedMaxScale}
                 contentAspectRatio={contentAspectRatio}
                 onLayout={this.onLayout}
