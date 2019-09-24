@@ -279,10 +279,11 @@ export default class ImageTransformer extends React.Component {
             style, imageComponent, resizeMode, enableTransform,
             enableScale, maxScale, enableTranslate, enableResistance,
             resistantStrHorizontal, resistantStrVertical,
-            maxOverScrollDistance, onViewTransformed,
+            maxOverScrollDistance, onTransformStart, onViewTransformed,
             onPinchTransforming,  onPinchStartReached,
             onPinchEndReached, onTransformGestureReleased,
             onDoubleTapStartReached, onDoubleTapEndReached,
+            onDoubleTapConfirmed, onSingleTapConfirmed,
             index
         } = this.props;
 
