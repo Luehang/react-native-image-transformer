@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, ViewPropTypes } from "react-native";
+import { View, Text, Image, ViewPropTypes, Dimensions } from "react-native";
 import PropTypes from "prop-types";
 import ViewTransformer from "react-native-easy-view-transformer";
 
@@ -69,6 +69,7 @@ export default class ImageTransformer extends React.Component {
         this.getViewTransformerInstance =
             this.getViewTransformerInstance.bind(this);
         this.renderError = this.renderError.bind(this);
+        this.toggleOrientation = this.toggleOrientation.bind(this);
 
         this.state = {
             viewWidth: 0,
@@ -80,11 +81,13 @@ export default class ImageTransformer extends React.Component {
                 ? { width: props.image.width, height: props.image.height }
                 : undefined,
             keyAccumulator: 1,
-            source: undefined
+            source: undefined,
+            enableOrientation: false
         };
     }
 
     componentWillMount () {
+        Dimensions.addEventListener("change", this.toggleOrientation);
         if (!this.state.source) {
             this.getImageSource(this.props.image);
         }
@@ -121,13 +124,16 @@ export default class ImageTransformer extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextState.imageLoaded && !this.state.imageLoaded) {
+        if (nextState.enableOrientation) {
+            return true;
+        } else if (nextState.imageLoaded && !this.state.imageLoaded) {
             return true;
         }
         return false;
     }
 
     componentWillUnmount () {
+        Dimensions.removeEventListener("change", this.toggleOrientation);
         this._mounted = false;
     }
 
@@ -152,6 +158,12 @@ export default class ImageTransformer extends React.Component {
         }
 
         this.props.onLayout && this.props.onLayout(e);
+    }
+
+    toggleOrientation(bool) {
+        this.setState({
+            enableOrientation: bool
+        });
     }
 
     getImageSize (image) {
@@ -267,11 +279,10 @@ export default class ImageTransformer extends React.Component {
             style, imageComponent, resizeMode, enableTransform,
             enableScale, maxScale, enableTranslate, enableResistance,
             resistantStrHorizontal, resistantStrVertical,
-            maxOverScrollDistance, onTransformStart, onViewTransformed,
+            maxOverScrollDistance, onViewTransformed,
             onPinchTransforming,  onPinchStartReached,
             onPinchEndReached, onTransformGestureReleased,
             onDoubleTapStartReached, onDoubleTapEndReached,
-            onDoubleTapConfirmed, onSingleTapConfirmed,
             index
         } = this.props;
 
