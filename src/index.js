@@ -86,8 +86,10 @@ export default class ImageTransformer extends React.Component {
         };
     }
 
-    componentWillMount () {
-        Dimensions.addEventListener("change", this.toggleOrientation);
+    componentDidMount () {
+        this._mounted = true;
+
+        Dimensions.addEventListener("change", () => this.toggleOrientation(true));
         if (!this.state.source) {
             this.getImageSource(this.props.image);
         }
@@ -96,29 +98,25 @@ export default class ImageTransformer extends React.Component {
         }
     }
 
-    componentDidMount () {
-        this._mounted = true;
-    }
-
-    componentWillReceiveProps (nextProps) {
-        if (!sameImage(this.props.image, nextProps.image)) {
+    componentDidUpdate (prevProps) {
+        if (!sameImage(prevProps.image, this.props.image)) {
             // image source changed, clear last
             // image's imageDimensions info if any
             this.setState({
-                imageDimensions: nextProps.image.dimensions
-                    ? nextProps.image.dimensions
-                    : nextProps.image.width && nextProps.image.height
-                    ? { width: nextProps.image.width, height: nextProps.image.height }
+                imageDimensions: this.props.image.dimensions
+                    ? this.props.image.dimensions
+                    : this.props.image.width && this.props.image.height
+                    ? { width: this.props.image.width, height: this.props.image.height }
                     : undefined,
                 keyAccumulator: this.state.keyAccumulator + 1,
                 imageLoaded: false
             });
-            if (!nextProps.image.source) {
-                this.getImageSource(nextProps.image);
+            if (!this.props.image.source) {
+                this.getImageSource(this.props.image);
             }
             // if we don't have image dimensions provided in source
-            if (!nextProps.image.dimensions) {
-                this.getImageSize(nextProps.image);
+            if (!this.props.image.dimensions) {
+                this.getImageSize(this.props.image);
             }
         }
     }
@@ -133,7 +131,7 @@ export default class ImageTransformer extends React.Component {
     }
 
     componentWillUnmount () {
-        Dimensions.removeEventListener("change", this.toggleOrientation);
+        Dimensions.removeEventListener("change", () => this.toggleOrientation(true));
         this._mounted = false;
     }
 
