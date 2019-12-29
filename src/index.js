@@ -89,6 +89,7 @@ export default class ImageTransformer extends React.Component {
     componentDidMount () {
         this._mounted = true;
 
+        // TO DO: Find better way to get initial states
         Dimensions.addEventListener("change", () => this.toggleOrientation(true));
         if (!this.state.source) {
             this.getImageSource(this.props.image);
