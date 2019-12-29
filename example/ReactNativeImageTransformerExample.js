@@ -1,5 +1,6 @@
 import React from "react";
 import ImageTransformer from "react-native-image-transformer";
+// import ImageTransformer from "./src";
 
 export default class ReactNativeImageTransformerExample extends React.PureComponent {
     render() {
@@ -9,14 +10,14 @@ export default class ReactNativeImageTransformerExample extends React.PureCompon
                 image={
                     {
                         uri: "https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg",
-    
+
                         // --> Can be used with different object fieldname.
                         // ----> Ex. source, source.uri, uri, URI, url, URL
                         // source: { uri: "https://luehangs.site/pic-chat-app-images/animals-avian-beach-760984.jpg" },
                         // URI: "https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg",
                         // url: "https://luehangs.site/pic-chat-app-images/beautiful-blond-fishnet-stockings-48134.jpg",
                         // URL: "https://luehangs.site/pic-chat-app-images/adult-arm-art-326559.jpg",
-    
+
                         // --> Performance optimization.
                         // dimensions: { width: 1080, height: 1920 },
                         // width: 100
