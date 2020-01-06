@@ -99,25 +99,25 @@ export default class ImageTransformer extends React.Component {
         }
     }
 
-    componentDidUpdate (prevProps) {
-        if (!sameImage(prevProps.image, this.props.image)) {
+    UNSAFE_componentWillReceiveProps (nextProps) {
+        if (!sameImage(this.props.image, nextProps.image)) {
             // image source changed, clear last
             // image's imageDimensions info if any
             this.setState({
-                imageDimensions: this.props.image.dimensions
-                    ? this.props.image.dimensions
-                    : this.props.image.width && this.props.image.height
-                    ? { width: this.props.image.width, height: this.props.image.height }
+                imageDimensions: nextProps.image.dimensions
+                    ? nextProps.image.dimensions
+                    : nextProps.image.width && nextProps.image.height
+                    ? { width: nextProps.image.width, height: nextProps.image.height }
                     : undefined,
                 keyAccumulator: this.state.keyAccumulator + 1,
                 imageLoaded: false
             });
-            if (!this.props.image.source) {
-                this.getImageSource(this.props.image);
+            if (!nextProps.image.source) {
+                this.getImageSource(nextProps.image);
             }
             // if we don't have image dimensions provided in source
-            if (!this.props.image.dimensions) {
-                this.getImageSize(this.props.image);
+            if (!nextProps.image.dimensions) {
+                this.getImageSize(nextProps.image);
             }
         }
     }
