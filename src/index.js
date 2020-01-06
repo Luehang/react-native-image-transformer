@@ -86,7 +86,7 @@ export default class ImageTransformer extends React.Component {
         };
     }
 
-    componentDidMount () {
+    UNSAFE_componentWillMount () {
         this._mounted = true;
 
         // TO DO: Find better way to get initial states
