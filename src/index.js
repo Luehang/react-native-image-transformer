@@ -40,6 +40,8 @@ export default class ImageTransformer extends React.Component {
         onPinchEndReached: PropTypes.func,
         onViewTransformed: PropTypes.func,
         onTransformGestureReleased: PropTypes.func,
+        onSwipeUpReleased: PropTypes.func,
+        onSwipeDownReleased: PropTypes.func,
         onDoubleTapStartReached: PropTypes.func,
         onDoubleTapEndReached: PropTypes.func,
         onDoubleTapConfirmed: PropTypes.func,
@@ -281,6 +283,7 @@ export default class ImageTransformer extends React.Component {
             maxOverScrollDistance, onTransformStart, onViewTransformed,
             onPinchTransforming,  onPinchStartReached,
             onPinchEndReached, onTransformGestureReleased,
+            onSwipeUpReleased, onSwipeDownReleased,
             onDoubleTapStartReached, onDoubleTapEndReached,
             onDoubleTapConfirmed, onSingleTapConfirmed,
             index
@@ -344,6 +347,8 @@ export default class ImageTransformer extends React.Component {
                 onPinchStartReached={onPinchStartReached}
                 onPinchEndReached={onPinchEndReached}
                 onTransformGestureReleased={onTransformGestureReleased}
+                onSwipeUpReleased={onSwipeUpReleased}
+                onSwipeDownReleased={onSwipeDownReleased}
                 onDoubleTapStartReached={onDoubleTapStartReached}
                 onDoubleTapEndReached={onDoubleTapEndReached}
                 onDoubleTapConfirmed={onDoubleTapConfirmed}
