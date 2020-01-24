@@ -71,7 +71,7 @@ export default class ImageTransformer extends React.Component {
         this.getViewTransformerInstance =
             this.getViewTransformerInstance.bind(this);
         this.renderError = this.renderError.bind(this);
-        this.toggleOrientation = this.toggleOrientation.bind(this);
+        this.onOrientation = this.onOrientation.bind(this);
 
         this.state = {
             viewWidth: 0,
@@ -92,7 +92,7 @@ export default class ImageTransformer extends React.Component {
         this._mounted = true;
 
         // TO DO: Find better way to get initial states
-        Dimensions.addEventListener("change", () => this.toggleOrientation(true));
+        Dimensions.addEventListener("change", this.onOrientation);
         if (!this.state.source) {
             this.getImageSource(this.props.image);
         }
@@ -134,7 +134,7 @@ export default class ImageTransformer extends React.Component {
     }
 
     componentWillUnmount () {
-        Dimensions.removeEventListener("change", () => this.toggleOrientation(true));
+        Dimensions.removeEventListener("change", this.onOrientation);
         this._mounted = false;
     }
 
@@ -161,9 +161,9 @@ export default class ImageTransformer extends React.Component {
         this.props.onLayout && this.props.onLayout(e);
     }
 
-    toggleOrientation(bool) {
+    onOrientation() {
         this.setState({
-            enableOrientation: bool
+            enableOrientation: true
         });
     }
 
