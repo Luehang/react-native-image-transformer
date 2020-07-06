@@ -129,6 +129,8 @@ export default class ImageTransformer extends React.Component {
             return true;
         } else if (nextState.imageLoaded && !this.state.imageLoaded) {
             return true;
+        } else if (!nextState.imageLoaded) {
+            return true;
         }
         return false;
     }
