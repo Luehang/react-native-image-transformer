@@ -220,13 +220,7 @@ export default class ImageTransformer extends React.Component {
                     this._mounted && this.setState({ error: true });
                 }
             );
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn(
-                "react-native-image-transformer",
-                "Please provide dimensions for your local images."
-            );
-        }
+        } 
     }
 
     getImageSource (image) {
@@ -239,14 +233,8 @@ export default class ImageTransformer extends React.Component {
 
         if (source) {
             this.setState({ source });
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn(
-                "react-native-image-transformer",
-                "Please provide a valid image field in " +
-                "data images. Ex. source, uri, URI, url, URL"
-            );
-        }
+        } 
+        
     }
 
     getViewTransformerInstance () {
