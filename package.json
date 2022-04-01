@@ -52,7 +52,7 @@
   ],
   "dependencies": {
     "prop-types": "^15.6.2",
-    "react-native-easy-view-transformer": "^1.2.0"
+    "react-native-easy-view-transformer": "https://github.com/ExentriqLtd/react-native-easy-view-transformer"
   },
   "peerDependencies": {
     "react": "*",
