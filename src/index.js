@@ -1,57 +1,8 @@
 import React from "react";
-import { View, Text, Image, ViewPropTypes, Dimensions } from "react-native";
-import PropTypes from "prop-types";
+import { View, Text, Image, Dimensions } from "react-native";
 import ViewTransformer from "react-native-easy-view-transformer";
 
 export default class ImageTransformer extends React.Component {
-    static propTypes = {
-        image: PropTypes.shape({
-            uri: PropTypes.string,
-            dimensions: PropTypes.shape({
-                width: PropTypes.number,
-                height: PropTypes.number
-            })
-        }).isRequired,
-        index: PropTypes.number,
-        style: ViewPropTypes
-            ? ViewPropTypes.style
-            : View.propTypes.style,
-        onLoad: PropTypes.func,
-        onLoadStart: PropTypes.func,
-        enableTransform: PropTypes.bool,
-        enableScale: PropTypes.bool,
-        maxScale: PropTypes.number,
-        enableTranslate: PropTypes.bool,
-        enableResistance: PropTypes.bool,
-        resistantStrHorizontal: PropTypes.oneOfType([
-            PropTypes.func,
-            PropTypes.number,
-            PropTypes.string
-        ]),
-        resistantStrVertical: PropTypes.oneOfType([
-            PropTypes.func,
-            PropTypes.number,
-            PropTypes.string
-        ]),
-        maxOverScrollDistance: PropTypes.number,
-        onTransformStart: PropTypes.func,
-        onPinchTransforming: PropTypes.func,
-        onPinchStartReached: PropTypes.func,
-        onPinchEndReached: PropTypes.func,
-        onViewTransformed: PropTypes.func,
-        onTransformGestureReleased: PropTypes.func,
-        onSwipeUpReleased: PropTypes.func,
-        onSwipeDownReleased: PropTypes.func,
-        onDoubleTapStartReached: PropTypes.func,
-        onDoubleTapEndReached: PropTypes.func,
-        onDoubleTapConfirmed: PropTypes.func,
-        onSingleTapConfirmed: PropTypes.func,
-        imageComponent: PropTypes.func,
-        resizeMode: PropTypes.string,
-        errorComponent: PropTypes.func,
-        onLayout: PropTypes.func,
-    };
-
     static defaultProps = {
         index: 0,
         enableTransform: true,
@@ -94,7 +45,7 @@ export default class ImageTransformer extends React.Component {
 
         // TO DO: Find better way to get initial states
 	this.setState({ _dimensionsChangeListener: Dimensions.addEventListener("change", this.onOrientation) });
-        
+
         if (!this.state.source) {
             this.getImageSource(this.props.image);
         }
@@ -139,7 +90,7 @@ export default class ImageTransformer extends React.Component {
 
     componentWillUnmount () {
 	if (this.state._dimensionsChangeListener) {
-	    this.state._dimensionsChangeListener.remove()
+	    this.state._dimensionsChangeListener.remove();
 	}
         this._mounted = false;
     }
