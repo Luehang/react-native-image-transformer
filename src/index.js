@@ -135,7 +135,7 @@ export default class ImageTransformer extends React.Component {
     }
 
     componentWillUnmount () {
-        Dimensions.removeEventListener("change", this.onOrientation);
+        Dimensions.removeEventListener && Dimensions.removeEventListener("change", this.onOrientation);
         this._mounted = false;
     }
 
