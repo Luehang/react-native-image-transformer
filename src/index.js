@@ -51,6 +51,7 @@ export default class ImageTransformer extends React.Component {
         resizeMode: PropTypes.string,
         errorComponent: PropTypes.func,
         onLayout: PropTypes.func,
+        getImageUriSize: PropTypes.func,
     };
 
     static defaultProps = {
@@ -198,7 +199,8 @@ export default class ImageTransformer extends React.Component {
         }
 
         if (uri) {
-            Image.getSize(
+            const getImageUriSize = this.props.getImageUriSize || Image.getSize;
+            getImageUriSize(
                 uri,
                 (width, height) => {
                     if (width && height) {
