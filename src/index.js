@@ -48,6 +48,7 @@ export default class ImageTransformer extends React.Component {
         onDoubleTapConfirmed: PropTypes.func,
         onSingleTapConfirmed: PropTypes.func,
         imageComponent: PropTypes.func,
+        injectComponent: PropTypes.func,
         resizeMode: PropTypes.string,
         errorComponent: PropTypes.func,
         onLayout: PropTypes.func,
@@ -60,6 +61,7 @@ export default class ImageTransformer extends React.Component {
         enableTranslate: true,
         enableResistance: true,
         imageComponent: undefined,
+        injectComponent: undefined,
         resizeMode: "contain"
     };
 
@@ -219,13 +221,7 @@ export default class ImageTransformer extends React.Component {
                     this._mounted && this.setState({ error: true });
                 }
             );
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn(
-                "react-native-image-transformer",
-                "Please provide dimensions for your local images."
-            );
-        }
+        } 
     }
 
     getImageSource (image) {
@@ -238,14 +234,8 @@ export default class ImageTransformer extends React.Component {
 
         if (source) {
             this.setState({ source });
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn(
-                "react-native-image-transformer",
-                "Please provide a valid image field in " +
-                "data images. Ex. source, uri, URI, url, URL"
-            );
-        }
+        } 
+        
     }
 
     getViewTransformerInstance () {
@@ -287,7 +277,7 @@ export default class ImageTransformer extends React.Component {
             onSwipeUpReleased, onSwipeDownReleased,
             onDoubleTapStartReached, onDoubleTapEndReached,
             onDoubleTapConfirmed, onSingleTapConfirmed,
-            index
+            index, injectComponent
         } = this.props;
 
         let resolvedMaxScale = 1;
@@ -321,20 +311,22 @@ export default class ImageTransformer extends React.Component {
             onLoad: this.onLoad,
             capInsets: { left: 0.1, top: 0.1, right: 0.1, bottom: 0.1 }
         };
-
-        const content = error
+    
+        let content = error
             ? this.renderError()
             : imageComponent
             ? imageComponent(imageProps, imageDimensions, index)
-            : <Image { ...imageProps } />;
-
+            : <Image { ...imageProps } />
+    
+         if(injectComponent){
+             content = injectComponent(imageProps)
+         }
+            
         return (
             <ViewTransformer
-                ref={(component) => (this.viewTransformer = component)}
-                // when image source changes, we should use a different
-                // node to avoid reusing previous transform state
+                 ref={(component) => (this.viewTransformer = component)}
                 key={"viewTransformer#" + keyAccumulator}
-                // disable transform until image is loaded
+                disable transform until image is loaded
                 enableTransform={enableTransform && imageLoaded}
                 enableScale={enableScale}
                 enableTranslate={enableTranslate}
@@ -377,7 +369,6 @@ function sameImage (source, nextSource) {
     }
     return false;
 }
-
 function findUri (data) {
 	return data.source
 		? data.source : data.uri
