@@ -1,6 +1,25 @@
 import React from "react";
 import { View, Text, Image, Dimensions } from "react-native";
-import ViewTransformer from "react-native-easy-view-transformer";
+import BaseViewTransformer from "react-native-easy-view-transformer";
+
+// New Architecture (RN 0.86+): BaseViewTransformer.measureLayout() nutzt das in Fabric
+// entfernte NativeModules.UIManager.measure(handle, ...), was einen Laufzeitfehler
+// ("undefined is not a function") auslöst. Wir überschreiben die Methode mit der
+// ref-basierten measure()-Variante der View-Instanz (identische Callback-Signatur).
+class ViewTransformer extends BaseViewTransformer {
+    measureLayout () {
+        if (!this.innerViewRef || typeof this.innerViewRef.measure !== "function") {
+            return;
+        }
+        this.innerViewRef.measure((x, y, width, height, pageX, pageY) => {
+            if (typeof pageX === "number" && typeof pageY === "number") { // avoid undefined values on Android devices
+                if (this.state.pageX !== pageX || this.state.pageY !== pageY) {
+                    this.setState({ pageX: pageX, pageY: pageY });
+                }
+            }
+        });
+    }
+}
 
 export default class ImageTransformer extends React.Component {
     static defaultProps = {
